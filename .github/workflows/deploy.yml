@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  call-workflow:
+  Deployment:
     uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@main
     with:
       config-path: .github/labeler.yml
