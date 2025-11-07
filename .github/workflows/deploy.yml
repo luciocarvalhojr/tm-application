@@ -13,4 +13,4 @@ jobs:
       aws-access-key-id: ABC-123
     secrets:
       token: ${{ secrets.MY_SECRET }}
-      aws-access-key-id: ABC123
+      aws-access-key: ABC123
