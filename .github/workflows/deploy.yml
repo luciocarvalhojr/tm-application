@@ -14,3 +14,4 @@ jobs:
     secrets:
       token: ${{ secrets.MY_SECRET }}
       aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
