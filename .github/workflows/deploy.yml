@@ -1,7 +1,7 @@
 name: Call a reusable workflow
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -10,5 +10,7 @@ jobs:
     uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@main
     with:
       config-path: .github/labeler.yml
+      aws-access-key-id: ABC-123
     secrets:
       token: ${{ secrets.MY_SECRET }}
+      aws-access-key-id: ABC123
