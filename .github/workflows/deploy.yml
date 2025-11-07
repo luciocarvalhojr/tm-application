@@ -10,7 +10,7 @@ jobs:
     uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@main
     with:
       config-path: .github/labeler.yml
-      aws-access-key-id: ABC-123
+      aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
     secrets:
       token: ${{ secrets.MY_SECRET }}
-      aws-access-key: ABC123
+      aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
