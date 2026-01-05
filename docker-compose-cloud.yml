@@ -1,0 +1,94 @@
+services:
+  web:
+    build:
+      dockerfile: docker/php-apache/Dockerfile
+      context: .
+      target: base
+      args:
+        TM_XDEBUG: "${TM_XDEBUG}"
+    pull_policy: always
+    env_file:
+      - .env
+    volumes:
+     - ".:/var/www"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 1G
+    extra_hosts:
+      - "${TM_BASE_DOMAIN}:127.0.0.1"
+    restart: '${TM_DOCKER_COMPOSE_RESTART_POLICY}'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-web.rule=Host(`${TM_BASE_DOMAIN}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-web.middlewares=${TM_TRAEFIK_MIDDLEWARE}"
+      - "traefik.http.middlewares.traefik-basic-auth.basicauth.users=${TM_TRAEFIK_BASIC_AUTH_USERS}"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-web.entrypoints=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-web.tls.certresolver=letsencrypt"
+      - "traefik.docker.network=traefik"
+    networks:
+      traefik:
+        aliases:
+          - ${COMPOSE_PROJECT_NAME}-traefik
+      project:
+
+  db:
+    image: mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    env_file:
+      - .env
+    volumes:
+      - "./mysql:/var/lib/mysql"
+      - "./mysql.conf.d:/etc/mysql/conf.d"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 1G
+    restart: '${TM_DOCKER_COMPOSE_RESTART_POLICY}' 
+    networks:
+      traefik:
+        aliases:
+          - ${COMPOSE_PROJECT_NAME}-traefik
+      project:
+
+  redis:
+    image: redis:7
+    restart: '${TM_DOCKER_COMPOSE_RESTART_POLICY}'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 1G
+    networks:
+      project:
+
+  mailhog:
+    image: mailhog/mailhog
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 1G
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailhog.rule=Host(`mailhog.${TM_BASE_DOMAIN}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailhog.middlewares=${TM_TRAEFIK_MIDDLEWARE}"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailhog.entrypoints=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailhog.tls.certresolver=letsencrypt"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}-mailhog.loadbalancer.server.port=8025"
+      - "traefik.docker.network=traefik"
+    restart: '${TM_DOCKER_COMPOSE_RESTART_POLICY}'
+    networks:
+      traefik:
+        aliases:
+          - ${COMPOSE_PROJECT_NAME}-traefik
+      project:
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  project:
+    name: ${COMPOSE_PROJECT_NAME}
