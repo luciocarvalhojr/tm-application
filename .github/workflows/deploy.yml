@@ -11,7 +11,7 @@ jobs:
     with:
       config-path: .github/labeler.yml
       aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+      tm-instance-id: ${{vars.TM_INSTANCE_ID}}
     secrets:
       token: ${{ secrets.MY_SECRET }}
       aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
