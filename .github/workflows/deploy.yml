@@ -17,5 +17,4 @@ jobs:
             || github.ref_name == 'migration' && 'migration'
         }}
       config-path: .github/labeler.yml
-    secrets:
-      token: ${{ secrets.MY_SECRET }}
+    secrets: inherit
