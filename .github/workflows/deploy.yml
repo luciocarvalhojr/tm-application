@@ -14,7 +14,7 @@ jobs:
       aws-ssm-bucket: ${{ vars.AWS_SSM_BUCKET }}
       tm-instance-id: ${{vars.TM_INSTANCE_ID}}
       server_username: ${{ vars.SERVER_USERNAME }}
-      projet_client: ${{vars.PROJET_CLIENT}}
+      project_client: ${{vars.PROJECT_CLIENT}}
     secrets:
       token: ${{ secrets.MY_SECRET }}
       aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
