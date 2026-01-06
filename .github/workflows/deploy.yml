@@ -9,17 +9,6 @@ on:
 
 jobs:
   Deployment:
-    strategy:
-      matrix:
-        include:
-          - branch: main
-            environment: production
-          - branch: staging
-            environment: staging
-          - branch: migration
-            environment: migration
-          - branch: '*'
-            environment: dry-run
     uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@main
     with:
       environment: >-
