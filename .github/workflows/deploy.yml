@@ -17,4 +17,5 @@ jobs:
             || github.ref_name == 'migration' && 'migration'
         }}
       config-path: .github/labeler.yml
-    secrets: inherit
+    secrets: 
+      aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
