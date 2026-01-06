@@ -5,17 +5,17 @@ on:
     branches:
       - main
       - staging
+      - migration
 
 jobs:
   Deployment:
-    environment: ${{ 
-      github.ref_name == 'main' && 'production' ||
-      github.ref_name == 'staging' && 'staging' ||
-      github.ref_name == 'develop' && 'development'
-    }}
-
     uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@main
     with:
+      environment: >-
+        ${{ github.ref_name == 'main' && 'production'
+            || github.ref_name == 'staging' && 'staging'
+            || github.ref_name == 'migration' && 'migration'
+        }}
       config-path: .github/labeler.yml
       aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
       aws-ssm-bucket: ${{ vars.AWS_SSM_BUCKET }}
