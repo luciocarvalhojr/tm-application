@@ -13,6 +13,8 @@ jobs:
       aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
       aws-ssm-bucket: ${{ vars.AWS_SSM_BUCKET }}
       tm-instance-id: ${{vars.TM_INSTANCE_ID}}
+      server_username: ${{ vars.SERVER_USERNAME }}
+      projet_client: ${{vars.PROJET_CLIENT}}
     secrets:
       token: ${{ secrets.MY_SECRET }}
       aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
