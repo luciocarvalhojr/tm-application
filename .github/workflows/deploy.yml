@@ -9,7 +9,7 @@ on:
 
 jobs:
   Deployment:
-    uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@v1.0.0
+    uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@v1
     with:
       environment: >-
         ${{ github.ref_name == 'main' && 'production'
