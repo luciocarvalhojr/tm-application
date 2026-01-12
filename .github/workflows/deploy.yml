@@ -17,4 +17,5 @@ jobs:
             || github.ref_name == 'migration' && 'migration'
         }}
     secrets: 
-      aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      aws-deploy-role-arn: ${{ secrets.AWS_OIDC_ROLE_ARN }}
