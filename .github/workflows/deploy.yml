@@ -7,10 +7,6 @@ on:
       - staging
       - migration
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   Deployment:
     uses: luciocarvalhojr/tm-workflow/.github/workflows/deploy-ssm.yml@v1
